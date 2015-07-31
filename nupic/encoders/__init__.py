@@ -28,6 +28,7 @@ from sdrcategory import SDRCategoryEncoder
 from delta import DeltaEncoder
 from scalarspace import ScalarSpaceEncoder
 from coordinate import CoordinateEncoder
+from letter import LetterEncoder
 from geospatial_coordinate import GeospatialCoordinateEncoder
 from nupic.encoders.pass_through_encoder import PassThroughEncoder
 # multiencoder must be imported last because it imports * from this module!
