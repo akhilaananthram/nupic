@@ -1,19 +1,19 @@
 # ----------------------------------------------------------------------
 # Numenta Platform for Intelligent Computing (NuPIC)
-# Copyright (C) 2013, Numenta, Inc.  Unless you have an agreement
+# Copyright (C) 2012-2015, Numenta, Inc.  Unless you have an agreement
 # with Numenta, Inc., for a separate license for this software code, the
 # following terms and conditions apply:
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 3 as
+# it under the terms of the GNU Affero Public License version 3 as
 # published by the Free Software Foundation.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
+# See the GNU Affero Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # http://numenta.org/licenses/
@@ -28,16 +28,12 @@ $EXP_GENERATOR_PROGRAM_PATH
 """
 
 import os
-
 from nupic.swarming.permutationhelpers import *
 
 # The name of the field being predicted.  Any allowed permutation MUST contain
 # the prediction field.
 # (generated from PREDICTION_FIELD)
 predictedField = '$PREDICTION_FIELD'
-
-$PERM_FIXED_FIELDS
-$PERM_FAST_SWARM_MODEL_PARAMS
 
 permutations = {
   'aggregationInfo': $PERM_AGGREGATION_CHOICES,
@@ -82,16 +78,6 @@ report = [
 $PERM_OPTIMIZE_SETTING
 
 minParticlesPerSwarm = $HS_MIN_PARTICLES
-
-$PERM_ALWAYS_INCLUDE_PREDICTED_FIELD
-
-$PERM_MIN_FIELD_CONTRIBUTION
-$PERM_KILL_USELESS_SWARMS
-$PERM_MAX_FIELD_BRANCHING
-$PERM_TRY_ALL_3_FIELD_COMBINATIONS
-$PERM_TRY_ALL_3_FIELD_COMBINATIONS_W_TIMESTAMPS
-
-$PERM_MAX_MODELS
 
 
 

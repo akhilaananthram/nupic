@@ -5,15 +5,15 @@
 # following terms and conditions apply:
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 3 as
+# it under the terms of the GNU Affero Public License version 3 as
 # published by the Free Software Foundation.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
+# See the GNU Affero Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # http://numenta.org/licenses/
@@ -154,6 +154,8 @@ def getModule(metricSpec):
 
   if metricName == 'rmse':
     return MetricRMSE(metricSpec)
+  if metricName == 'nrmse':
+    return MetricNRMSE(metricSpec)
   elif metricName == 'aae':
     return MetricAAE(metricSpec)
   elif metricName == 'acc':
@@ -504,6 +506,29 @@ class MetricRMSE(AggregateMetric):
       n = len(historyBuffer)
 
     return np.sqrt(accumulatedError / float(n))
+
+
+
+class MetricNRMSE(MetricRMSE):
+  """computes normalized root-mean-square error"""
+  def __init__(self, *args, **kwargs):
+    super(MetricNRMSE, self).__init__(*args, **kwargs)
+    self.groundTruths = []
+
+  def accumulate(self, groundTruth, prediction, accumulatedError, historyBuffer):
+    self.groundTruths.append(groundTruth)
+
+    return super(MetricNRMSE, self).accumulate(groundTruth,
+                                               prediction,
+                                               accumulatedError,
+                                               historyBuffer)
+
+  def aggregate(self, accumulatedError, historyBuffer, steps):
+    rmse = super(MetricNRMSE, self).aggregate(accumulatedError,
+                                              historyBuffer,
+                                              steps)
+    denominator = np.std(self.groundTruths)
+    return rmse / denominator if denominator > 0 else float("inf")
 
 
 
